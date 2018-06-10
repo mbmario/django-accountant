@@ -1,0 +1,8 @@
+            {% if el.0 %} <!-- "Month Yr" -->
+                <p>category: {{ el.0 }}</p>
+                <p>price: {{ el.0 }}</p>
+
+            {% else %} <!-- ("category", price)-->
+                <p>month: {{ el.0 }}</p>
+                <p>month: {{ el.0 }}</p>
+            {% endif %}

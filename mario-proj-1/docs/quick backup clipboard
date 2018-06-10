@@ -1,0 +1,176 @@
+
+ index.html selector js
+    <script>
+    <!--$(document).ready(function(){-->
+    <!--$("button").change(function() {-->
+
+        <!--console.log("CHANGE REGISTERED HEADER")-->
+        <!--event.preventDefault();-->
+
+        <!--var cat = "dafsd" //$(this).text().trim();-->
+        <!--var li = "ddddddd" // $(this).closest('.row').children().first().text().trim();-->
+        <!--console.log(cat + " " + li)-->
+
+        <!--// send an ajax post request, telling it to assign li's category field to cat-->
+        <!--$.ajax({-->
+            <!--url : '/assign_cat_to_li',-->
+            <!--type : 'POST',-->
+            <!--data : { 'li' : li, 'cat' : cat},-->
+            <!--success: function () {-->
+                <!--// update text of parent to cat-->
+                <!--console.log('INSIDE AJAX success on ' + li + ' and ' + cat);-->
+<!--//                $(this).parent().children().removeAttr("selected")-->
+<!--//                $(this).attr("selected", "selected")-->
+<!--//                $(this).attr("value", cat)-->
+            <!--}-->
+        <!--});-->
+        <!--});-->
+    <!--});-->
+    </script>
+
+
+##############
+
+
+Tests.py before db refactoring
+
+from django.test import TestCase, Client
+from testfixtures import compare
+from .process_csv import *
+from .models import *
+from django.test import RequestFactory
+from .forms import *
+from .views import *
+
+# tests from upload_csv
+class TestCaseCSV(TestCase):
+
+
+    def test_category_dict(self):
+        default_user = User.objects.create(username="AzureDiamond", password="hunter2") # id will be 1 for defaults
+        existing_cat = Category.objects.create(name="test_existing", )
+
+
+    def test_process_line(self):
+
+        # tests process_csv/process_line and its child fns
+        # (method desc): takes  a line and formatting info (cols) and returns a "best guess" li item
+
+        # default_category = "*uncategorized"
+        lines = [
+            "\"2/12/2018\",\"\",\"ARCO#82844               KENT         WA\",\"21.65\",\"\"",
+            "\"Date\", \"No.\", \"Description\", \"Debit\", \"Credit\"",
+            "\"2/19/2018\", \"\", \"Interest Charge on Cash Advances\", \"\", \"0.00\"",
+            '"2/11/2018", "", "LOVES TRAVEL S00004135   ELLENSBURG   WA", "9.19", ""',
+            "2/12/2018", "", "MCDONALD'S F13372        LIBERTY LAKE WA", "7.91", ""
+        ]
+        # desired_result = [
+        #     LineItem(name="ARCO",
+        #              category=default_category,
+        #              price='21.65',
+        #              date='2018-02-12',
+        #              info="ARCO#82844 KENT WA",
+        #              recent=True),
+        #     None,
+        #     None,
+        #     LineItem(name="LOVES TRAVEL",
+        #              category=default_category,
+        #              price='9.19',
+        #              date='2018-02-11',
+        #              info="LOVES TRAVEL S00004135 ELLENSBURG WA",
+        #              recent=True),
+        #     LineItem(name="MCDONALD'S",
+        #              category=default_category,
+        #              price='7.91',
+        #              date='2018-02-12',
+        #              info="MCDONALD'S F13372 LIBERTY LAKE WA",
+        #              recent=True),
+        # ]
+        # cols = {'price': 3, 'date': 0, 'info': 2}
+        # #pdb.set_trace()
+        # compare(process_line(lines[0],cols), desired_result[0])
+        # compare(process_line(lines[1], cols), desired_result[1])
+        # compare(process_line(lines[2], cols), desired_result[2])
+
+#    def test_update_category(self):
+        # tests views/Assign Cat to Li task
+        # (method desc): taking an li, updates the price of that li's category. If no category, it creates one
+
+        # TODO
+        #   incorporate tests for existing categories (using the textfield)
+        #   incorporate tests for correct ways to use
+        # pdb.set_trace()
+        #
+        # default_user = User.objects.create(username="AzureDiamond", password="hunter2") # id will be 1 for defaults
+        # existing_cat = Category.objects.create(name="test_existing")
+        #
+        # #pdb.set_trace()
+        # existing_cat_li = LineItem(name="li_1", category=existing_cat)
+        # nonexisting_cat_li = LineItem(name="li_2", category=existing_cat)
+        #
+        # update_category(existing_cat_li)
+        # update_category(nonexisting_cat_li)
+        #
+        # result_existing_cat = Category(name="*test_existing", total=4.00)
+        # result_nonexisting_cat = Category(name="*test_nonexisting", total=2.00)
+        # #pdb.set_trace()
+        #
+        # #desired result
+        # dr_existing_cat = Category.objects.get(name="*test_existing")
+        # dr_nonexisting_cat = Category.objects.get(name="*test_nonexisting")
+        #
+        # # run field comparison to avoid comparing ids
+        # compare([result_existing_cat.name, result_existing_cat.total], [dr_existing_cat.name, dr_existing_cat.total])
+        # compare([result_nonexisting_cat.name, result_nonexisting_cat.total], [dr_nonexisting_cat.name, dr_nonexisting_cat.total])
+
+    # integration tests
+
+# tests post views
+#class TestCaseViews(TestCase):
+
+   # def test_assign_cat_to_li(self):
+        # #(method desc): changes the line item (li)'s category to the given category (cat)
+        #
+        # old_cat = Category.objects.create(name="*old_cat", total=2.00)
+        # new_cat = Category.objects.create(name="*new_cat", total=2.00)
+        #
+        # li = LineItem.objects.create(name="*test_li_1", category="*old_cat", price=2.00, date='2018-04-06', recent=True)
+        #
+        # # change the category from old to new
+        # request_factory = RequestFactory()
+        # data = {'li': li.name, 'cat': new_cat.name, 'id': li.id}
+        # request = request_factory.post('/placeholder', data)
+        #
+        # #pdb.set_trace()
+        # assign_cat_to_li(request)
+        #
+        # # pull objects again
+        # li = LineItem.objects.get(id=li.id) # must pull li again
+        # old_cat = Category.objects.get(name=old_cat.name)
+        # new_cat = Category.objects.get(name=new_cat.name)
+        #
+        # # assert that the li's category is changed, and that the amount got transferred
+        # compare(li.category, new_cat.name)
+        # compare(li.recent, False)
+        # compare(old_cat.total, 0.00)
+        # compare(new_cat.total, 4.00)
+        #
+        #
+        # # now bad data (wrong cat and id), because we can't have the numbers screwed up somehow
+        # bad_data_1 = {'li': li.name, 'cat': old_cat.name, 'id': -1}
+        # bad_data_2 = {'li': li.name, 'cat': "*invalid", 'id': li.id}
+        # request_1 = request_factory.post('/placeholder', bad_data_1)
+        # request_2 = request_factory.post('/placeholder', bad_data_2)
+        #
+        # assign_cat_to_li(request_1)
+        # assign_cat_to_li(request_2)
+        #
+        # old_cat = Category.objects.get(name=old_cat.name)
+        # new_cat = Category.objects.get(name=new_cat.name)
+        # li = LineItem.objects.get(id=li.id)
+        #
+        # #ensure nothing changed
+        # compare(old_cat.total, 0.00)
+        # compare(new_cat.total, 4.00)
+        # compare(li.category, new_cat.name)
+

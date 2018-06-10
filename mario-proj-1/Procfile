@@ -1,0 +1,1 @@
+web: gunicorn mario_proj_1.wsgi

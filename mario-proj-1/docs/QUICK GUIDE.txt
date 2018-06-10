@@ -1,0 +1,35 @@
+
+TASK AT HAND
+
+Deal with WSGI request thing
+Make category unique across name + user combo
+Mock up 2 simple csvs with some items same name, some slightly different
+Full 2-user tests using the mocked up csvs and some overlapping categories
+
+BACKLOG
+
+	Add graphics
+
+	minor: change formatting to main in upload_csv; fill out guess_cat; optimize process_line's import statements
+
+COOL IDEAS
+    Loop over Li, making a data frame of city (from info), date, category, and price
+        Then plot that on a map of WA/ID (dots of normalized sizes over cities)
+
+COMMON COMMANDS
+
+Run
+    heroku
+        git add *; git commit -m "aaaaaa"; git push heroku master
+    local
+        python manage.py runserver 0.0.0.0:5000
+        chrome : 0.0.0.0:5000
+    debug
+        run local, except with breakpoints
+    local shell
+        python manage.py shell
+
+Administration
+    model update
+        >python manage.py makemigrations
+        >python manage.py migrate
