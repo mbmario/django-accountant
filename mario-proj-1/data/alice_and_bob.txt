@@ -1,7 +1,0 @@
-Alice's categories
-beer -
-soap -
-
-Bob's categories
-pizza -
-soap -
