@@ -1,0 +1,35 @@
+TASK AT HAND
+	[in process_csv.py]
+
+BACKLOG
+	Buttons: Activate buttons (lower priority)
+        LI Edit Button -> page with form, submit link to index
+        LI Delete Button -> AJAX fn / url / view to delete from db and remove tr
+        Cat Edit Button -> page with form, submit link to index
+        Cat Delete Button -> AJAX fn / url / view to delete from db and remove tr
+            New Line item / Category -> dropdown of all categories
+	Add unit tests
+	    Add_li’s category should be a dropdown
+	Add in a base template and extend that
+	Cleanup
+	    Briefly document what
+	        Each template displays and what its js does
+	        
+
+COMMON COMMANDS
+
+Run
+    heroku
+        git add *; git commit -m "aaaaaa"; git push heroku master
+    local
+        python manage.py runserver 0.0.0.0:5000
+        chrome : 0.0.0.0:5000
+    debug
+        run local, except with breakpoints
+    local shell
+        python manage.py shell
+
+Administration
+    model update
+        >python manage.py makemigrations
+        >python manage.py migrate

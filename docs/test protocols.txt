@@ -1,0 +1,82 @@
+1. / functionality
+    a. Assign Cat to Li
+        components:
+            views.py / index: renders page with data
+            modify_li.js: triggers when dropdown is changed, sends post
+            views.py / assign_cat_to_li: recieves AJAX request, updates db
+        test:
+            Change the dropdown category on a line item
+            Refresh the page
+            i.      old category will see - price
+            ii.     new category will see + price
+            iii.    selected dropdown on / will be new category
+            iv.     if LI was new, sort to old
+    b. "All OK"
+        components:
+            buttons.js / ('input.ok').on('click'...): sends an ajax message "all ok"
+            input class="ok": refreshes page
+            views.py / button_input: receives ajax message all ok with other blank params
+                    changes value of all recent=True lis to be recent=False
+        test:
+            Add lineitems with csv uploader
+            Assign their categories
+            Click "All OK"
+            i.      their categories should be assigned and updated
+            ii.     the page will refresh
+            iii.    line items will be moved to "Old Line Items"
+    c. delete button
+        components:
+            buttons.js / ('input.delete_li').on('click'...): sends an ajax with id of li, action "delete {li/cat}"
+        test
+            Click delete button on item
+            i.      Item will be removed (through jq)
+            ii.     Category totals will be changed to reflect removed item
+            iii.    Item will also be gone on refresh (through being removed from db)
+            iv.     Works for both li and cat
+
+
+2. /add_cat functionality
+    a. Add Category
+        components:
+            forms.py / CatForm: form for input
+            views.py / add_cat: opens the page, passes form
+            views.py / post_cat: receives the form on submit
+
+        test:
+            Enter name and total
+            Select "Submit"
+            i.      will redir to /
+            ii.     new category will show up
+            iii.    new category will be option in li dropdowns
+            iv.     1a will work for new category
+            v.      new category will show up in add_li
+
+3. /add_li functionality
+    a.  Add LineItem
+        components:
+            forms.py / LIForm: form for input
+            views.py / add_li: opens the page, passes form
+            views.py / post_li: receives the form on submit
+        test:
+            Enter name and total
+            Select "Submit"
+            i.      will redir to /
+            ii.     new li will show up
+            iii.     1i will work for new category
+
+4. /upload_csv  functionality
+    a. Upload a csv of new lineitems and assign its categories as new
+        components:
+            views.py / upload_csv (get): renders the upload csv page
+            " / " (post): receives the form on submit, calls process_csv.py
+            process_csv.py / * : reads the csv, saves the LIs, updates category total of *uncategorized
+        test:
+            from home page, click "upload csv"
+            upload your csv and submit
+            get redirected to /process_new, where the csv items
+            i.      You will see the same lis from your csv
+            assign these categories
+            click OK
+            ii.     will redir to /
+            iii.    your new lis will be there as new items
+            iv.     *uncategorized will have an updated total

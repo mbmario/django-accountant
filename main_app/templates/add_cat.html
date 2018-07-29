@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<script src="{% static 'js/csrf.js' %}"></script>
+{% csrf_token %}
+
+<div class = "container" role = "main">
+
+    <h1> New Category</h1>
+
+    <div class="row top">
+        <form action = "post_cat_url" method="post">
+            {% csrf_token %}
+            {{catForm.as_p}}
+            <input type="submit" value="Submit" class="btn-primary" />
+        </form>
+    </div>
+</div>
+{% endblock %}

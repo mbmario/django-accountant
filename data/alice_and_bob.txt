@@ -1,0 +1,12 @@
+Alice's categories
+    beer $20 -> $25
+    soap $15
+
+Bob's categories
+    beer $20 -> $25
+    pizza $15
+
+Alice's account
+    >
+Bob's account
+    >

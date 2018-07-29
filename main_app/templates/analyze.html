@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<script src="{% static 'js/csrf.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+{% csrf_token %}
+
+<div class = "container" role = "main">
+
+    <h1> Your Spending</h1>
+    {% for row in rows%}
+     <!--row : ['January 2018', ("beer", 14.54), ("candles",12.00)]-->
+        {% for el in row %}
+            {% if el.0 %} <!-- "Month Yr" -->
+                <p>category: {{ el.0 }}</p>
+                <p>price: {{ el.1 }}</p>
+
+            {% else %} <!-- ("category", price)-->
+                <p>month: {{ el.1 }}</p>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+
+</div>
+{% endblock %}

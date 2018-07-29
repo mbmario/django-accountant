@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% load static %}
+<script src="{% static 'js/csrf.js' %}"></script>
+{% csrf_token %}
+
+<div class = "container" role = "main">
+
+    <h1> Upload a .csv of some transactions</h1>
+
+    <div class="row top">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
